@@ -19,13 +19,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r1xz+f!#4^x6p17le&n@0b+9+=6i%kvx16_!%8fa0v%j$s+rm^'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-default-key')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -122,6 +119,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'guests', 'static'),     # Статика приложения
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 
 # Default primary key field type

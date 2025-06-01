@@ -7,18 +7,443 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Марс & Эльвина — Свадебное приглашение</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @font-face {
+        font-family: 'Cinzel Regular';
+        src: url('/static/guests/fonts/cinzel_regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        }
+        @font-face {
+        font-family: 'Marck Regular';
+        src: url('/static/guests/fonts/MarckScript-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        }
+        @font-face {
+        font-family: 'Cinzel Bold';
+        src: url('/static/guests/fonts/cinzel_bold.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        }
+        @font-face {
+        font-family: 'GreatVibes';
+        src: url('/static/guests/fonts/GreatVibes-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        }
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
         }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f5f0;
-            color: #1c1c1c;
-            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: #f3f3f3;
         }
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 80px;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 0;
+        }
+        .bottom-gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.6) 0%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0) 100%
+            );
+            z-index: 0;
+        }
+        .date {
+            font-family:'Marck Regular', serif;
+            font-size: 24px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+            letter-spacing: 2px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: textAppear 1s ease-out 0.5s forwards;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5),
+                         0 4px 8px rgba(0, 0, 0, 0.3),
+                         0 0 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .names {
+            font-family:'Marck Regular', serif;
+            font-size: 72px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.1;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: textAppear 1s ease-out 0.8s forwards;
+            color: white;
+
+        }
+                /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes textAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Индикатор скролла */
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 1.5s forwards, bounce 2s infinite 2s;
+            z-index: 10;
+            color: white;
+            font-size: 24px;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-15px) translateX(-50%); }
+            60% { transform: translateY(-7px) translateX(-50%); }
+        }
+        /* Стили для последующего контента */
+        .content-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-out 1.2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Настройки для десктопов */
+        @media (min-width: 769px) {
+            .hero-image {
+                /* Сдвигаем фото вниз на 15% для десктопов */
+                object-position: center 5%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .date {
+                font-family:'Marck Regular', serif;
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+
+            .names {
+                font-family:'Marck Regular', serif;
+                font-size: 48px;
+                margin-bottom: 30px;
+            }
+
+            .hero-section {
+                padding-bottom: 60px;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+            .date {
+                font-family:'Marck Regular', serif;
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            .names {
+                font-family:'Marck Regular', serif;
+                font-size: 42px;
+                margin-bottom: 20px;
+            }
+
+            .hero-section {
+                padding-bottom: 40px;
+            }
+        }
+        /* Секция приглашения */
+        .invitation-section {
+          display: flex;
+          flex-direction: column;
+          height: 100vh;
+          padding: 20px;
+          justify-content: space-between;
+          align-items: center;
+          text-align: center;
+        }
+
+    .invitation-text {
+        font-family: 'Cinzel Regular', serif;
+        font-size: 0.9rem;
+        max-width: 600px;
+        margin: 10px 0;
+        margin-bottom: 30px;
+    }
+    .invitation-text-header {
+        font-family: 'Cinzel Bold', bold;
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 20px 0;
+        color: #2a2118;
+    }
+
+    .wedding-date {
+        font-family: 'GreatVibes', serif;
+        font-size: 3rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 30px;
+    }
+
+    .invitation-image {
+      flex-shrink: 0;
+      max-height: 50vh;
+      width: auto;
+    }
+    /* Секция с программой */
+        .hands-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .program-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f3f3f3;
+            padding: 40px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .program-title {
+            font-family: 'Cinzel Bold', bold;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #2a2118;
+        }
+
+        .program-subtitle {
+            font-family: 'Cinzel Regular', serif;
+            font-size: 0.8rem;
+            max-width: 600px;
+            margin: 10px 0;
+            margin-bottom: 30px;
+        }
+
+        .timeline {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: #2a2118;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            padding: 20px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: #f9f5f0;
+            border: 3px solid #2a2118;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+
+        .timeline-time {
+            font-family: 'Cinzel Regular', serif;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #2a2118;
+            margin-bottom: 5px;
+        }
+
+        .timeline-event {
+            font-family: 'Cinzel Regular', serif;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .timeline-description {
+            font-family: 'Cinzel Regular', serif;
+            font-size: 0.5rem;
+            line-height: 1.4;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .program-title {
+                font-size: 1.2rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+                text-align: left !important;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item::after {
+                left: 24px !important;
+            }
+        }
+        .timing-section {
+          display: flex;
+          flex-direction: column;
+          padding: 20px;
+          justify-content: space-between;
+          align-items: center;
+          text-align: center;
+        }
+        .photo-section {
+            background-color: rgba(0, 0, 0, 0.4);
+            margin-top: 15px;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .location-section {
+          display: flex;
+          flex-direction: column;
+          padding: 20px;
+          justify-content: space-between;
+          align-items: center;
+          text-align: center;
+            margin-top: 15px;
+        }
+
+        .full-width-photo {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .photo-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3); /* Уровень затемнения (0.4) */
+            z-index: 1;
+        }
+
+        .location-description {
+        font-family: 'Cinzel Regular', serif;
+        font-size: 0.9rem;
+        max-width: 600px;
+        margin: 10px 0;
+        margin-bottom: 30px;
+    }
+
+        .dresscode-title {
+        font-family: 'Cinzel Regular', serif;
+        font-size: 0.9rem;
+        max-width: 600px;
+        margin: 10px 0;
+        margin-bottom: 30px;
+    }
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -26,7 +451,9 @@
             background-color: #ffffff;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             border-radius: 10px;
+                        height: 100vh;
         }
+
         header {
             text-align: center;
             margin-bottom: 2rem;
@@ -67,6 +494,19 @@
             width: 100%;
             border-radius: 8px;
             margin: 1rem 0;
+        }
+                .location-map {
+            width: 100%;
+            height: 400px;
+            border: 2px solid #2a2118;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .location-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
         .button {
             display: inline-block;
@@ -132,49 +572,580 @@
                 padding: 1.5rem;
             }
         }
+        /* Секция дресс-кода - минималистичная версия */
+        .dresscode-section {
+            padding: 80px 40px;
+            background-color: #f9f5f0;
+            text-align: center;
+        }
+
+        .dresscode-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: #2a2118;
+            letter-spacing: 1px;
+        }
+
+        .dresscode-subtitle {
+            font-family: 'Cinzel Regular', serif;
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+            color: black;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .color-palette {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .color-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .color-circle:hover {
+            transform: scale(1.05);
+        }
+
+        .dresscode-note {
+            font-family: 'Cinzel Regular', serif;
+            font-size: 0.9rem;
+            color: black;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 15px 0;
+            position: relative;
+            font-weight: 300;
+        }
+
+        .dresscode-note:before {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: #d7c9b9;
+            margin: 0 auto 15px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .dresscode-section {
+                padding: 60px 20px;
+            }
+
+            .dresscode-title {
+                font-size: 2.8rem;
+            }
+
+            .color-palette {
+                gap: 25px;
+            }
+
+            .color-circle {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        .surprise-section {
+            margin-top: 10px;
+            padding: 90px 40px;
+            background-color: #3a2c20; /* Тёмно-коричневый */
+            text-align: center;
+            color: #f0e6d8; /* Светлый текст */
+        }
+
+        .surprise-title {
+            font-family: 'Cinzel Bold', bold;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            color: #e6d5c3;
+        }
+
+        .surprise-content {
+            max-width: 600px;
+            margin: 0 auto;
+            font-family: 'Cinzel Regular', serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        .surprise-text{
+            font-family: 'Cinzel Regular', serif;
+            font-size: 0.9rem;
+            color: #e6d5c3;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 15px 0;
+            position: relative;
+            font-weight: 300;
+        }
+
+        .contact-card {
+            font-family:'Marck Regular', serif;
+            background-color: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 400px;
+            border-left: 3px solid #b78d65;
+        }
+
+        .contact-name {
+            font-family:'Marck Regular', serif;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: #f0e6d8;
+        }
+
+        .contact-phone {
+            font-family:'Marck Regular', serif;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            margin: 15px 0;
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: rgba(183, 141, 101, 0.2);
+            border-radius: 30px;
+        }
+
+        .contact-note {
+            font-family: 'Cinzel Regular', serif;
+            font-size: 0.95rem;
+            font-style: italic;
+            margin-top: 25px;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .contact-note:before {
+            content: "*";
+            position: absolute;
+            left: -15px;
+            top: 0;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .surprise-section {
+                padding: 70px 20px;
+            }
+
+            .surprise-title {
+                font-size: 1.2rem;
+            }
+
+            .contact-card {
+                padding: 25px 20px;
+            }
+
+            .contact-phone {
+                font-size: 1.1rem;
+            }
+        }
+        .requests-section {
+            padding: 90px 40px;
+            background-color: #f3f3f3;
+            text-align: center;
+            color: #2a2118;
+        }
+
+        .requests-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.2rem;
+            margin-bottom: 2rem;
+            color: #6b4f3e;
+            letter-spacing: 1px;
+        }
+
+        .requests-intro {
+                font-family: 'Cinzel Regular', serif;
+    font-size: 0.9rem;
+    margin-bottom: 3rem;
+    color: black;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+    font-weight: 300;
+        }
+
+        .requests-list {
+            max-width: 650px;
+            margin: 0 auto;
+            text-align: left;
+            font-family: 'Cinzel', serif;
+        }
+
+        .request-item {
+            margin-bottom: 35px;
+            padding-left: 60px;
+            position: relative;
+        }
+
+        .request-icon {
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(107, 79, 62, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b4f3e;
+            font-size: 1.1rem;
+        }
+
+        .request-title {
+            font-family: 'Cinzel Regular', serif;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #2a2118;
+    margin-bottom: 5px;
+        }
+
+        .request-text {
+                font-family: 'Cinzel Regular', serif;
+    font-size: 0.8rem;
+    line-height: 1.4;
+        }
+
+        /* Декоративные элементы */
+        .divider {
+            width: 100px;
+            height: 1px;
+            background-color: #d7c9b9;
+            margin: 50px auto;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .requests-section {
+                padding: 70px 20px;
+            }
+
+            .requests-title {
+                font-size: 2.7rem;
+            }
+
+            .request-item {
+                padding-left: 50px;
+                margin-bottom: 30px;
+            }
+
+            .request-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+        }
+        /* Стили для формы RSVP */
+        .rsvp-section {
+            padding: 20px 20px;
+            background-color: #f3f3f3;
+            font-family: 'Cinzel', serif;
+            color: #2a2118;
+        }
+
+        .rsvp-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .rsvp-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #6b4f3e;
+        }
+
+        .rsvp-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 400;
+            font-family: 'Cinzel Regular', serif;
+            font-size: 0.9rem;
+        }
+
+        .rsvp-form input[type="text"],
+        .rsvp-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 25px;
+            border: 1px solid #d7c9b9;
+            border-radius: 4px;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            background-color: #fdfbf9;
+            transition: all 0.3s ease;
+        }
+
+        .rsvp-form input[type="text"]:focus,
+        .rsvp-form textarea:focus {
+            outline: none;
+            border-color: #b78d65;
+            box-shadow: 0 0 0 2px rgba(183, 141, 101, 0.2);
+        }
+
+        .radio-group {
+            margin-bottom: 25px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .radio-option input {
+            margin-right: 10px;
+            accent-color: #6b4f3e;
+        }
+
+        .radio-option label {
+            margin-bottom: 0;
+            font-weight: 300;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: #6b4f3e;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #5a4232;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .rsvp-container {
+                padding: 30px 20px;
+            }
+
+            .rsvp-title {
+                font-size: 2.5rem;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <h1>The wedding day of Марс & Эльвина</h1>
-        <p>Save the date: <strong>25.08.25</strong></p>
-    </header>
-    <div class="hero-image">
-        <img src="{% static 'guests/images/wedding_hands.jpg' %}" alt="Фото пары" />
+    <section class="hero-section">
+        <img src="{% static 'guests/images/main_photo.jpg' %}" alt="Марс и Эльвина" class="hero-image">
+        <div class="overlay"></div>
+        <div class="bottom-gradient"></div>
+        <p class="date">25 августа 2025</p>
+        <div class="names">Марс & Эльвина</div>
+        <div class="scroll-hint">↓</div>
+    </section>
+  <section class="invitation-section">
+    <div class="invitation-text">
+      <h1 class="invitation-text-header">Дорогие гости!</h1>
+        Один день в этом году станет для нас особенно важным</br>
+        Мы хотим, чтобы в этот волшебный момент рядом были те, кто наполняет нашу жизнь теплом, смехом и бесконечной поддержкой. Приглашаем вас разделить с нами этот светлый и незабываемый день. Ведь именно ваше присутствие сделает его по-настоящему особенным!
     </div>
-    <div class="section">
-        <h2>Место проведения</h2>
-        <p>Ждём вас по адресу: г. Москва, Ленинский пр-т, 25<br />
-            Ресторан “Shine”</p>
-        <img src="https://via.placeholder.com/600x300?text=Фото+локации" alt="Локация" />
-        <a href="https://yandex.ru/maps" target="_blank" class="button">Открыть карту</a>
+    <div class="wedding-date">
+      25.08.2025
     </div>
+    <img class="invitation-image" src="{% static 'guests/images/calendar.jpg' %}" alt="Свадебное фото или элемент декора" />
+  </section>
+    <section class="timing-section">
+        <h1 class="program-title">Программа дня</h1>
+        <p class="program-subtitle">Мы будем рады видеть вас на всех этапах нашего торжества</p>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-time">13:00</div>
+                <div class="timeline-event">Сбор гостей в ЗАГСе</div>
+                <div class="timeline-description">Встречаемся, делимся хорошим настроением. Просьба не опаздывать — ведь самое важное начинается именно здесь!</div>
+            </div>
 
-    <div class="section">
-        <h2>Тайминг</h2>
-        <ul class="timing">
-            <li><strong>14:00</strong> — Сбор гостей</li>
-            <li><strong>15:00</strong> — Церемония</li>
-            <li><strong>16:30</strong> — Фотосессия</li>
-            <li><strong>18:00</strong> — Начало банкета</li>
-        </ul>
-    </div>
-    <h1>Вы приглашены на нашу свадьбу</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.full_name.label_tag }}<br>
-        {{ form.full_name }}
+            <div class="timeline-item">
+                <div class="timeline-time">13:20</div>
+                <div class="timeline-event">Торжественная церемония бракосочетания</div>
+                <div class="timeline-description">Торжественный момент, когда "да" значит навсегда</div>
+            </div>
 
-        <div class="radio">
-            {{ form.attending }}
+            <div class="timeline-item">
+                <div class="timeline-time">16:00</div>
+                <div class="timeline-event">Начало банкета</div>
+                <div class="timeline-description">Настало время еды и танцев!</div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-time">20:00</div>
+                <div class="timeline-event">Свадебный торт</div>
+                <div class="timeline-description">Символ сладкой жизни, которую мы начинаем вместе. Угощаемся и наслаждаемся</div>
+            </div>
         </div>
 
-        {{ form.message.label_tag }}<br>
-        {{ form.message }}
+  </section>
+    <section class="photo-section">
+        <img class="full-width-photo" src="{% static 'guests/images/collage_wedding.png' %}" alt="Свадебное фото или элемент декора" />
+    </section>
+    <section class="location-section">
+        <h2 class="program-title">Локация</h2>
 
-        <button type="submit">Отправить RSVP</button>
-    </form>
-</div>
+        <div class="location-content">
+            <div>
+                <div class="location-description">
+                    Наша свадьба пройдет в ресторане Тэти Лаундж</br>
+                    Он находится по адресу: г.Нижнекамск, ул.Чулман 9а
+                </div>
+            </div>
+            <div class="location-map">
+                <!-- Вставьте ваш код карты (Google Maps, Yandex Maps и т.д.) -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2251.314221848396!2d51.799048593133385!3d55.64874350354688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x415f9479cf8a4471%3A0x971445032bec1f93!2z0KfQsNC50YXQsNC90LAg0KLQrdCi0JggTG91bmdlICjQndC40LbQvdC10LrQsNC80YHQuik!5e0!3m2!1sru!2sse!4v1748708364562!5m2!1sru!2sse" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+        <section class="location-section">
+        <h2 class="program-title">Дресс-код</h2>
+        <p class="dresscode-subtitle">Поддержите нашу цветовую палитру в своих нарядах</p>
+
+        <div class="color-palette">
+            <div class="color-circle" style="background-color: #e6d5c3;" title="Бежевый"></div>
+            <div class="color-circle" style="background-color: #b78d65;" title="Светло-коричневый"></div>
+            <div class="color-circle" style="background-color: #6b4f3e;" title="Тёмно-коричневый"></div>
+            <div class="color-circle" style="background-color: #2a2118;" title="Чёрный"></div>
+        </div>
+
+        <p class="dresscode-note">
+            Для мужчин приветствуется сочетание белый + черный
+        </p>
+    </section>
+        <section class="surprise-section">
+        <h2 class="surprise-title">Сюрприз для молодожёнов</h2>
+
+        <div class="surprise-content">
+            <p class="surprise-text">Если вы хотите подготовить поздравление или особенный момент для нас, свяжитесь с нашим ведущим:</p>
+
+            <div class="contact-card">
+                <div class="contact-name">Альберт Меншин</div>
+                <div class="contact-phone">+7 (987) 263-63-13</div>
+                <p class="contact-name">Ведущий нашего торжества</p>
+            </div>
+
+            <p class="surprise-text">
+                * Пожалуйста, указывайте дату свадьбы и к кому идете,<br>
+                так как у ведущего могут быть другие мероприятия
+            </p>
+        </div>
+    </section>
+        <section class="requests-section">
+        <h2 class="program-title">Наши просьбы</h2>
+
+        <p class="requests-intro">
+            Дорогие друзья, нам очень хочется, чтобы этот день прошёл легко, радостно и по-настоящему тепло — для нас и для вас. Поэтому мы подготовили несколько дружеских просьб:
+        </p>
+
+        <div class="requests-list">
+            <div class="request-item">
+                <div class="request-icon"><i class="fas fa-child"></i></div>
+                <h3 class="request-title">Без детей</h3>
+                <p class="request-text">
+                    Мы безмерно любим малышей, но этот день мы хотим провести в атмосфере взрослого уюта и спокойствия. Пусть это будет вечер, когда вы сможете отдохнуть, потанцевать и насладиться праздником без забот. Надеемся на ваше понимание и поддержку.
+                </p>
+            </div>
+
+            <div class="request-item">
+                <div class="request-icon"><i class="fas fa-gift"></i></div>
+                <h3 class="request-title">Не ломайте голову над подарком и цветами</h3>
+                <p class="request-text">
+                    Вместо подарков и цветов мы будем признательны за конвертик — он поможет осуществить нашу заветную мечту.
+                </p>
+            </div>
+
+            <div class="request-item">
+                <div class="request-icon"><i class="fas fa-times-circle"></i></div>
+                <h3 class="request-title">Без "Горько!"</h3>
+                <p class="request-text">
+                    Да, да — мы знаем, что это традиция. Но поцелуй - это знак выражения чувств, он не может быть по заказу. Поэтому давайте оставим "Горько!" в прошлом и просто будем радоваться вместе.
+                </p>
+            </div>
+
+            <div class="request-item">
+                <div class="request-icon"><i class="fas fa-clock"></i></div>
+                <h3 class="request-title">Точность — вежливость королей</h3>
+                <p class="request-text">
+                    Просим вас приехать вовремя, чтобы ничего не пропустить и мы начали наш день вместе, с улыбками и бокалом шампанского.
+                </p>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+    </section>
+<section class="rsvp-section">
+    <div class="rsvp-container">
+        <h1 class="program-title">Анкета</h1>
+        <form method="post" class="rsvp-form">
+            {% csrf_token %}
+
+            <!-- Вопрос о присутствии -->
+            <div class="radio-group">
+                <label>Придёте ли вы на нашу свадьбу?</label>
+                <div class="radio-option">
+                    <input type="radio" id="attending_yes" name="attending" value="yes" required>
+                    <label for="attending_yes">Я приду / Мы придем</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="attending_no" name="attending" value="no">
+                    <label for="attending_no">К сожалению, не смогу</label>
+                </div>
+            </div>
+
+            <!-- ФИО -->
+            <label for="full_name">Пожалуйста, укажите ФИО для подтверждения</label>
+            <input type="text" id="full_name" name="full_name" required>
+
+            <!-- Выбор алкоголя -->
+            <label for="alcohol">Какой алкоголь вы будете пить?<br><small>(можно выбрать несколько вариантов)</small></label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="alcohol" value="вино красное"> Вино красное</label><br>
+                <label><input type="checkbox" name="alcohol" value="вино белое"> Вино белое</label><br>
+                <label><input type="checkbox" name="alcohol" value="шампанское"> Шампанское</label><br>
+                <label><input type="checkbox" name="alcohol" value="виски"> Виски</label><br>
+                <label><input type="checkbox" name="alcohol" value="водка"> Водка</label><br>
+                <label><input type="checkbox" name="alcohol" value="самогон"> Самогон</label><br>
+                <label><input type="checkbox" name="alcohol" value="безалкогольное"> Что-то безалкогольное</label>
+            </div>
+
+            <!-- Кнопка отправки -->
+            <button type="submit" class="submit-btn">Отправить</button>
+
+            <!-- Дата напоминания -->
+            <p style="text-align:center; margin-top: 20px; font-size: 0.9rem; font-family: 'Cinzel Regular', serif;">
+                Будем ждать ваш ответ до <strong>15.06.25</strong>
+            </p>
+        </form>
+    </div>
+</section>
 </body>
 </html>
